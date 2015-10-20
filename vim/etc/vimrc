@@ -1,0 +1,174 @@
+" An example for a vimrc file.
+"
+" Maintainer:	Bram Moolenaar <Bram@vim.org>
+" Last change:	2014 Feb 05
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"	      for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"	    for OpenVMS:  sys$login:.vimrc
+
+" When started as "evim", evim.vim will already have done these settings.
+if v:progname =~? "evim"
+  finish
+endif
+
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+" if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+" else
+  " set backup		" keep a backup file (restore to previous version)
+  " set undofile		" keep an undo file (undo changes after closing)
+" endif
+set history=10000		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
+set incsearch		" do incremental searching
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+if has('mouse')
+  set mouse=a
+endif
+
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  " For all text files set 'textwidth' to 78 characters.
+  autocmd FileType text setlocal textwidth=78
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  " Also don't do it when the mark is in the first line, that is the default
+  " position when opening a file.
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  augroup END
+
+else
+
+  set autoindent		" always set autoindenting on
+
+endif " has("autocmd")
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+		  \ | wincmd p | diffthis
+endif
+
+" CUSTOM
+
+set tabstop=4       " Number of spaces that a <Tab> in the file counts for.
+ 
+set shiftwidth=4    " Number of spaces to use for each step of (auto)indent.
+ 
+set expandtab       " Use the appropriate number of spaces to insert a <Tab>.
+                    " Spaces are used in indents with the '>' and '<' commands
+                    " and when 'autoindent' is on. To insert a real tab when
+                    " 'expandtab' is on, use CTRL-V <Tab>.
+ 
+set smarttab        " When on, a <Tab> in front of a line inserts blanks
+                    " according to 'shiftwidth'. 'tabstop' is used in other
+                    " places. A <BS> will delete a 'shiftwidth' worth of space
+                    " at the start of the line.
+ 
+set showcmd         " Show (partial) command in status line.
+
+set number          " Show line numbers.
+
+set showmatch       " When a bracket is inserted, briefly jump to the matching
+                    " one. The jump is only done if the match can be seen on the
+                    " screen. The time to show the match can be set with
+                    " 'matchtime'.
+ 
+set hlsearch        " When there is a previous search pattern, highlight all
+                    " its matches.
+ 
+set incsearch       " While typing a search command, show immediately where the
+                    " so far typed pattern matches.
+ 
+set ignorecase      " Ignore case in search patterns.
+ 
+set smartcase       " Override the 'ignorecase' option if the search pattern
+                    " contains upper case characters.
+ 
+set backspace=2     " Influences the working of <BS>, <Del>, CTRL-W
+                    " and CTRL-U in Insert mode. This is a list of items,
+                    " separated by commas. Each item allows a way to backspace
+                    " over something.
+ 
+set autoindent      " Copy indent from current line when starting a new line
+                    " (typing <CR> in Insert mode or when using the "o" or "O"
+                    " command).
+ 
+" set textwidth=79    " Maximum width of text that is being inserted. A longer
+                    " line will be broken after white space to get this width.
+ 
+set formatoptions=c,q,r,t " This is a sequence of letters which describes how
+                    " automatic formatting is to be done.
+                    "
+                    " letter    meaning when present in 'formatoptions'
+                    " ------    ---------------------------------------
+                    " c         Auto-wrap comments using textwidth, inserting
+                    "           the current comment leader automatically.
+                    " q         Allow formatting of comments with "gq".
+                    " r         Automatically insert the current comment leader
+                    "           after hitting <Enter> in Insert mode. 
+                    " t         Auto-wrap text using textwidth (does not apply
+                    "           to comments)
+ 
+set ruler           " Show the line and column number of the cursor position,
+                    " separated by a comma.
+ 
+" set background=dark " When set to "dark", Vim will try to use colors that look
+                    " good on a dark background. When set to "light", Vim will
+                    " try to use colors that look good on a light background.
+                    " Any other value is illegal.
+
+colorscheme github
+
+set pastetoggle=<F2>
+
+filetype plugin indent on
+syntax on
+
