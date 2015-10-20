@@ -1,4 +1,4 @@
-" BOHverkill's Vimrc
+" BOHverkill's VIMrc
 source /etc/vimrc
 
 " Plugins
@@ -9,13 +9,10 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'rodjek/vim-puppet'
-" Plugin 'tfnico/vim-gradle'
-" Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 " Plugin 'tomasr/molokai'
@@ -29,8 +26,8 @@ Plugin 'sjl/badwolf'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-"Misc
-"Allow saving files when I stupidly forgot to start vim with sudo
+" Misc
+" Allow saving files when I stupidly forgot to start vim with sudo
 cmap w!! w !sudo tee > /dev/null %
 
 " vim-arilne
@@ -51,9 +48,20 @@ cmap W w
 cmap X x
 cmap Q q
 
-"color
-"colorscheme github
-"colorscheme molokai
+" C&P
+" CTRL+C = copy
+" CTRL+P = paste
+" CTRL+X = cut
+vmap <C-c> "+y
+nmap <C-c> "+yiw
+vmap <C-x> "+x
+vmap <C-p> "+p
+nmap <C-p> "+P
+imap <C-p> <Esc>"+pa
+
+" color
+" colorscheme github
+" colorscheme molokai
 colorscheme badwolf
 
 augroup resCur
