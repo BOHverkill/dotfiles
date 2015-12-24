@@ -22,6 +22,7 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'gosukiwi/vim-atom-dark'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'sjl/badwolf'
+Plugin 'james9909/stackanswers.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
