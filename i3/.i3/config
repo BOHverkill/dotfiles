@@ -25,6 +25,8 @@ set $mod Mod4
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+font pango:Source Code Pro for Powerline, DejaVu Sans Mono, Icons 8
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -36,7 +38,7 @@ bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec kupfer
-bindsym $mod+d exec rofi -show run -lines 5
+bindsym $mod+d exec zsh -c "rofi -show run -lines 5"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -50,6 +52,7 @@ bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+odiaeresis focus right
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -62,6 +65,7 @@ bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+odiaeresis move right
+bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -70,10 +74,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+h split v
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+v split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -131,6 +135,7 @@ bindsym XF86MonBrightnessDown  exec  xbacklight -dec 20
 bindsym XF86MonBrightnessUp  exec  xbacklight -inc 20
 bindsym Print exec --no-startup-id scrot
 bindsym Shift+Print exec --no-startup-id scrot -s
+#bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -157,7 +162,19 @@ mode "$mode_system" {
 
 bindsym $mod+Shift+e mode "$mode_system"
 
-bindsym Control+mod1+l exec xautolock -locknow
+#change keyboard layout
+set $keyboardMode "keyboard d=de, u=us"
+bindsym $mod+Shift+i mode $keyboardMode
+mode $keyboardMode {
+    bindsym d exec "setxkbmap de", mode "default"
+    bindsym u exec "setxkbmap us; xmodmap $HOME/.Xmodmap", mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# bindsym Control+mod1+l exec xautolock -locknow
+bindsym Control+mod1+l exec xscreensaver-command --loc
 
 focus_follows_mouse no
 mouse_warping none
@@ -178,6 +195,7 @@ mode "resize" {
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
         bindsym odiaeresis resize grow width 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -215,24 +233,31 @@ for_window [class="[S|s]team"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 
+for_window [class="^.*"] border pixel 2
+new_window pixel 2
+
+hide_edge_borders both
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 # bar {
 #        status_command i3status
 # }
 
-bar {
-        position top
-        tray_output primary
-        status_command i3blocks
-        font pango:DejaVu Sans Mono, Icons 8
-        strip_workspace_numbers yes
+# bar {
+#         position top
+#         tray_output primary
+#         status_command i3blocks
+#         font pango:Source Code Pro for Powerline, DejaVu Sans Mono, Icons 8
+#         strip_workspace_numbers yes
+#
+#         colors {
+#             background #2d2d2d
+#             focused_workspace #555555 #555555 #ffffff
+#         }
+# }
 
-        colors {
-            background #2d2d2d
-            focused_workspace #555555 #555555 #ffffff
-        }
-}
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 bindsym $mod+n bar mode toggle
 bindsym $mod+x [urgent=latest] focus
@@ -240,20 +265,30 @@ bindsym $mod+Shift+s sticky toggle
 
 bindsym $mod+m exec clerk
 
-hide_edge_borders both
+bindsym --release Control+mod1+1 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '¯\_(ツ)_/¯'
+bindsym --release Control+mod1+2 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '(╯°□°）╯︵ ┻━┻'
+bindsym --release Control+mod1+3 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '( ͡° ͜ʖ ͡° )'
+bindsym --release Control+mod1+4 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '┬─┬ノ( º _ ºノ )'
+bindsym --release Control+mod1+5 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '┬──┬◡ﾉ(° -°ﾉ)'
+bindsym --release Control+mod1+6 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '™'
+bindsym --release Control+mod1+7 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '®'
+bindsym --release Control+mod1+8 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '👍'
+bindsym --release Control+mod1+9 exec xdotool type --clearmodifiers --window $(xdotool getwindowfocus) '🐧'
 
 # AUTOSTART
 exec $HOME/scripts/monitor.sh
 
 # for GTK support
-exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+#exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
 
 exec gsettings set org.gnome.settings-daemon.plugins.cursor active false
 
 # start network-manager
 exec_always killall nm-applet
-exec_always nm-applet
-exec blueman-applet
+exec_always sleep 2; nm-applet
+exec_always killall blueman-applet
+exec_always sleep 2; blueman-applet
 
 #exec start-pulseaudio-x11
 
@@ -262,23 +297,25 @@ exec udiskie
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 #exec --no-startup-id eval $(gnome-keyring-daemon -s) &
 
-exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
-exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon &
+# exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon &
+exec --no-startup-id dunst &
 
-# exec_always compton --config ~/.compton.conf -CGb 
+exec compton --config ~/.compton.conf &
 
 # SCRIPTS
-exec_always --no-startup-id feh --bg-center $HOME/.i3/wallpaper.jpg
+# exec_always --no-startup-id feh --bg-center $HOME/.i3/wallpaper.jpg
 
-exec xautolock -time 5 -locker '$HOME/scripts/lock.sh' &
+#exec xautolock -time 5 -locker '$HOME/scripts/lock.sh' -notify 30 -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds'" -detectsleep &
+exec xscreensaver -no-splash &
 
 exec --no-startup-id xfce4-power-manager
 
+exec --no-startup-id seafile-applet
+
 exec_always --on-startup-id $HOME/scripts/disable-standby-fs.py &
 
-exec_always --no-startup-id sleep 2;feh --bg-center $HOME/.i3/wallpaper.jpg
+exec --no-startup-id sleep 2;$HOME/scripts/wallpaper.sh
 
 exec_always $HOME/scripts/xdg-browser
 
 # vim:filetype=i3
-
