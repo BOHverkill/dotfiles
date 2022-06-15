@@ -1,0 +1,45 @@
+# CUSTOM
+
+setopt NO_clobber
+unsetopt nomatch
+
+autoload up-line-or-beginning-search
+autoload down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bind2maps emacs viins vicmd -- Up     up-line-or-beginning-search
+bind2maps emacs viins vicmd -- Down   down-line-or-beginning-search
+
+bindkey "^P"  up-line-or-beginning-search
+bindkey "^N"  down-line-or-beginning-search
+
+export EDITOR="/usr/bin/nvim"
+
+export SYSTEMD_EDITOR=$EDITOR
+
+export VISUAL="/usr/bin/nvim"
+
+export BROWSER="/usr/bin/firefox"
+
+export PAGER="less -Q"
+
+export SYSTEMD_PAGER=$PAGER
+
+export M2_HOME='/opt/maven'
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+export TZ="/usr/share/zoneinfo/Europe/Vienna"
+
+export PYTHON_KEYRING_BACKEND=keyring.backends.SecretService.Keyring
+
+[ -f ~/.zshrc.aliases ] && source ~/.zshrc.aliases
+
+eval "$(thefuck --alias)"
+
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+
+export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
+

@@ -1,0 +1,53 @@
+# CUSTOM aliases
+
+# neovim > vim
+alias vim='nvim'
+alias vi='nvim'
+alias vimo='vim -O'
+alias vimp='vim -p'
+alias vimr='vim -R'
+alias vimd='vim -d'
+alias vimor='vim -O -R'
+alias vimro='vim -R -O'
+
+alias vimsudo='sudoedit'
+alias sudovim='sudoedit'
+alias sudovimdiff='SUDO_EDITOR="nvim -d" sudoedit'
+alias vimdiffsudo='SUDO_EDITOR="nvim -d" sudoedit'
+alias sudovimo='SUDO_EDITOR="nvim -O" sudoedit'
+alias vimosudo='SUDO_EDITOR="nvim -O" sudoedit'
+
+# less
+alias less='less -QR'
+alias man 'man -P "less -Q"'
+
+# git
+alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+
+alias gcb='git checkout -b'
+alias gco='git checkout'
+
+alias gf='git fetch'
+alias gfa='git fetch --all --prune'
+
+alias gpom='git pull origin master --rebase'
+
+alias gg='git gui citool'
+alias gga='git gui citool --amend'
+
+alias ggui='git gui citool'
+alias gui='git gui citool'
+
+alias gk='\gitk --all --branches'
+compdef _git gk='gitk'
+
+alias glg='git log --stat'
+alias glo='git log --oneline --decorate'
+alias glog='git log --oneline --decorate --graph'
+
+alias gst='git status'
+
+alias git-branch-cleanup='git fetch -p && for branch in `git branch -vv | grep ": gone]" | awk "{print $1}"`; do git branch -D $branch; done'
+
