@@ -55,3 +55,5 @@ alias git-branch-cleanup='git fetch -p && for branch in `git branch -vv | grep "
 alias icat="kitty +kitten icat"
 alias kdiff="kitty +kitten diff"
 alias kssh="kitty +kitten ssh"
+
+alias nvim-bohverkill='JAVA_HOME=/usr/lib/jvm/java-11-openjdk NVIM_APPNAME="nvim-bohverkill" nvim'
