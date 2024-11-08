@@ -17,6 +17,9 @@ alias vimdiffsudo='SUDO_EDITOR="nvim -d" sudoedit'
 alias sudovimo='SUDO_EDITOR="nvim -O" sudoedit'
 alias vimosudo='SUDO_EDITOR="nvim -O" sudoedit'
 
+# workaround because I am unable to set it in the ltex lsp config
+alias nvim-java='JAVA_HOME=/usr/lib/jvm/java-11-openjdk nvim'
+
 # less
 alias less='less -QR'
 alias man 'man -P "less -Q"'
@@ -55,5 +58,3 @@ alias git-branch-cleanup='git fetch -p && for branch in `git branch -vv | grep "
 alias icat="kitty +kitten icat"
 alias kdiff="kitty +kitten diff"
 alias kssh="kitty +kitten ssh"
-
-alias nvim-bohverkill='JAVA_HOME=/usr/lib/jvm/java-11-openjdk NVIM_APPNAME="nvim-bohverkill" nvim'
