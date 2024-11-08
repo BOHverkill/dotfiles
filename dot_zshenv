@@ -1,0 +1,4 @@
+typeset -U path
+path=($path ~/scripts)
+path=($path `yarn global bin`)
+path=($path "$(ruby -e 'puts Gem.user_dir')/bin")

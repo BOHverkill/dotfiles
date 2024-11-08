@@ -14,8 +14,15 @@ Plug 'Shougo/deoplete-clangx'
 Plug 'neomake/neomake'
 Plug 'ludovicchabant/vim-gutentags'
 
+Plug 'nvim-lua/plenary.nvim'
+" Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'nvimtools/none-ls.nvim'
+" Plug 'kyazdani42/nvim-web-devicons'
+" Plug 'folke/trouble.nvim'
+
 Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'Matt-Deacalion/vim-systemd-syntax'
+" Plug 'Matt-Deacalion/vim-systemd-syntax'
+Plug 'https://codeberg.org/Dokana/vim-systemd-syntax.git'
 Plug 'lervag/vimtex'
 Plug 'elzr/vim-json'
 Plug 'ekalinin/Dockerfile.vim'
@@ -30,7 +37,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'sjl/badwolf'
 Plug 'tpope/vim-fugitive'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'airblade/vim-gitgutter'
+Plug 'mg979/vim-visual-multi'
 " Plug 'Townk/vim-autoclose' " Disabled because escape is bugged
 
 Plug 'tpope/vim-obsession'
@@ -92,8 +100,8 @@ let g:mkdp_auto_start = 1
 let g:prosession_dir = '~/.local/share/nvim/session/'
 
 " Hardmode
-let g:hardtime_default_on = 1
-let g:list_of_disabled_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "<PageUp>", "<PageDown>"]
+" let g:hardtime_default_on = 1
+" let g:list_of_disabled_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "<PageUp>", "<PageDown>"]
 
 " Easymotion
 " Gif config
@@ -103,6 +111,15 @@ nmap t <Plug>(easymotion-t2)
 " shfmt
 " Auto format on save
 " let g:shfmt_fmt_on_save = 1
+
+" null-ls
+lua << EOF
+require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.diagnostics.vale,
+    },
+})
+EOF
 
 " gutentags
 set statusline+=%{gutentags#statusline()}
@@ -122,7 +139,7 @@ set relativenumber
 set cursorline
 
 set spell
-set spelllang=en,de
+set spelllang=en,en_gb,en_us,de,de_at,de_de
 
 cmap W w
 cmap X x

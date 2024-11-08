@@ -1,7 +1,7 @@
 # CUSTOM
 
-setopt NO_clobber
-unsetopt nomatch
+setopt NO_CLOBBER
+unsetopt NOMATCH
 
 autoload up-line-or-beginning-search
 autoload down-line-or-beginning-search
@@ -13,6 +13,12 @@ bind2maps emacs viins vicmd -- Down   down-line-or-beginning-search
 
 bindkey "^P"  up-line-or-beginning-search
 bindkey "^N"  down-line-or-beginning-search
+
+HISTSIZE=100000
+SAVEHIST=100000
+setopt HIST_IGNORE_DUPS
+setopt INC_APPEND_HISTORY
+# DIRSTACKSIZE=100
 
 export EDITOR="/usr/bin/nvim"
 
@@ -42,4 +48,3 @@ eval "$(thefuck --alias)"
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 
 export GEM_HOME="$(ruby -e 'puts Gem.user_dir')"
-
